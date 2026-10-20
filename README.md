@@ -7,7 +7,7 @@ Tugas Kelompok UTS: program yang mengimplementasikan *Deterministic Finite Autom
 | No | Nama | NIM | Kasus |
 |----|------|-----|-------|
 | 1 | Danang Rafli Juvianto | K3525054 | TODO |
-| 2 | TODO | TODO | TODO |
+| 2 | Arofah | K3525 | TODO |
 | 3 | TODO | TODO | TODO |
 
 Universitas Sebelas Maret (UNS), Kelas B
