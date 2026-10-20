@@ -9,15 +9,15 @@ def validate_variable_name(input_string):
         'q1': {'letter': 'q1', 'underscore': 'q1', 'digit': 'q1', 'other': 'q_trap'},
         'q_trap': {'letter': 'q_trap', 'underscore': 'q_trap', 'digit': 'q_trap', 'other': 'q_trap'}
     }
-    
+
     current_state = 'q0'
     trace = [current_state]
 
     for char in input_string:
         # Pemetakan Karakter ke Simbol Input
-        if char.isalpha():
+        if char.isascii() and char.isalpha():
             char_type = 'letter'
-        elif char.isdigit():
+        elif char.isascii() and char.isdigit():
             char_type = 'digit'
         elif char == '_':
             char_type = 'underscore'
@@ -34,13 +34,19 @@ def validate_variable_name(input_string):
     is_valid = current_state == 'q1'
     return is_valid, trace
 
-# Demostrasi Kasus 1
-print("=== KASUS 1: VALIDASI VARIABLE NAME ===")
-test_inputs_1 = ["nama_user", "_count1", "123name", "user-name"]
 
-for inp in test_inputs_1:
-    valid, trace = validate_variable_name(inp)
-    status = "VALID (ACCEPT)" if valid else "TIDAK VALID (REJECT)"
-    print(f"Input : '{inp}'")
-    print(f"Jejak : {' -> '.join(trace)}")
-    print(f"Hasil : {status}\n" + "-" * 40)
+# Nama standar yang dipanggil main.py
+validasi = validate_variable_name
+
+
+if __name__ == "__main__":
+    # Demostrasi Kasus 1
+    print("=== KASUS 1: VALIDASI VARIABLE NAME ===")
+    test_inputs_1 = ["nama_user", "_count1", "123name", "user-name"]
+
+    for inp in test_inputs_1:
+        valid, trace = validate_variable_name(inp)
+        status = "VALID (ACCEPT)" if valid else "TIDAK VALID (REJECT)"
+        print(f"Input : '{inp}'")
+        print(f"Jejak : {' -> '.join(trace)}")
+        print(f"Hasil : {status}\n" + "-" * 40)
