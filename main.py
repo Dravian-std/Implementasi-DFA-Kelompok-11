@@ -1,7 +1,8 @@
 """Menu utama: menjalankan validasi DFA untuk semua kasus.
 
-Modul dimuat lewat path file (importlib) supaya folder bernama `email`
-tidak bentrok dengan modul bawaan Python `email`.
+Modul dimuat lewat path file (importlib) supaya nama folder dengan spasi
+dan tanda kurung tidak jadi masalah, dan folder `email` tidak bentrok
+dengan modul bawaan Python `email`.
 """
 import importlib.util
 from pathlib import Path
@@ -10,9 +11,9 @@ BASE = Path(__file__).parent
 
 # nomor menu -> (nama kasus, path file DFA)
 KASUS = {
-    "1": ("Variable Name", BASE / "kasus 1" / "dfa_variable.py"),
-    "2": ("Email Sederhana", BASE / "kasus 2" / "dfa_email.py"),
-    "3": ("Validasi Variable", BASE / "kasus 3" / "validasi_variable_name.py"),
+    "1": ("Variable Name", BASE / "kasus 1 (Variable_name)" / "dfa_variable.py"),
+    "2": ("Email Sederhana", BASE / "kasus 2 (Email)" / "dfa_email.py"),
+    "3": ("Format Jam (HH:MM)", BASE / "kasus 3 (Format Jam)" / "format_jam.py"),
 }
 
 
