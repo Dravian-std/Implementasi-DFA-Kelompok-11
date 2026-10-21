@@ -77,7 +77,7 @@ def jalankan_kasus(kode_kasus, nama, path):
         print(f"Input Pengguna : '{teks}'")
         print(f"Jejak Transisi : {' -> '.join(jejak)}")
         print(f"Status Final   : {status}")
-        print("-" * 48)
+        print("-" * 52)
 
 def main():
     bersihkan_layar()
