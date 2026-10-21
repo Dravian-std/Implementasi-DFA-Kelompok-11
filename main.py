@@ -10,11 +10,9 @@ KASUS = {
     "3": ("Format Jam (HH:MM)", BASE / "kasus 3 (Format Jam)" / "format_jam.py"),
 }
 
-
 def bersihkan_layar():
     """Membersihkan layar terminal (cls untuk Windows, clear untuk Linux/Mac)."""
     os.system("cls" if os.name == "nt" else "clear")
-
 
 def muat_modul(path):
     spec = importlib.util.spec_from_file_location(path.stem, path)
@@ -22,12 +20,11 @@ def muat_modul(path):
     spec.loader.exec_module(modul)
     return modul
 
-
 def jalankan_kasus(kode_kasus, nama, path):
     modul = muat_modul(path)
-
+    print()
     print("=" * 70)
-    print(f"      PROGRAM VALIDASI {nama.upper()} (DFA)")
+    print(f"                 PROGRAM VALIDASI {nama.upper()} (DFA)")
     print("=" * 70)
 
     # Menampilkan aturan dan label input sesuai kasus
@@ -81,7 +78,6 @@ def jalankan_kasus(kode_kasus, nama, path):
         print(f"Jejak Transisi : {' -> '.join(jejak)}")
         print(f"Status Final   : {status}")
         print("-" * 48)
-
 
 def main():
     bersihkan_layar()
