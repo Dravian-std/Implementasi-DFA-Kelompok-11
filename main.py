@@ -24,7 +24,6 @@ def jalankan_kasus(kode_kasus, nama, path):
     print(f"      PROGRAM VALIDASI {nama.upper()} (DFA)")
     print("=" * 70)
     
-    # Tampilkan aturan khusus jika memilih Kasus 1
     if kode_kasus == "1":
         print("Aturan:")
         print("1. Karakter pertama wajib berupa huruf (a-z, A-Z) atau '_'")
