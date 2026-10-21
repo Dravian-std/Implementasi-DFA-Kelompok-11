@@ -7,7 +7,7 @@ Tugas Kelompok UTS: program yang mengimplementasikan *Deterministic Finite Autom
 | No | Nama | NIM | Kasus |
 |----|------|-----|-------|
 | 1 | Danang Rafli Juvianto | K3525054 | TODO |
-| 2 | Arofah | K3525 | TODO |
+| 2 | Arofa Karindra Bimantara | K3525051 | TODO |
 | 3 | TODO | TODO | TODO |
 
 Universitas Sebelas Maret (UNS), Kelas B
@@ -25,7 +25,7 @@ Universitas Sebelas Maret (UNS), Kelas B
 ```
 .
 ├── README.md
-├── main.py                              # menu untuk menjalankan semua kasus
+├── main.py                              
 ├── kasus 1 (Variable_name)/dfa_variable.py
 ├── kasus 2 (Email)/dfa_email.py
 ├── kasus 3 (Format Jam)/format_jam.py
