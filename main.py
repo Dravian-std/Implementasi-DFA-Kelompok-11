@@ -1,15 +1,8 @@
-"""Menu utama: menjalankan validasi DFA untuk semua kasus.
-
-Modul dimuat lewat path file (importlib) supaya nama folder dengan spasi
-dan tanda kurung tidak jadi masalah, dan folder `email` tidak bentrok
-dengan modul bawaan Python `email`.
-"""
 import importlib.util
 from pathlib import Path
 
 BASE = Path(__file__).parent
 
-# nomor menu -> (nama kasus, path file DFA)
 KASUS = {
     "1": ("Variable Name", BASE / "kasus 1 (Variable_name)" / "dfa_variable.py"),
     "2": ("Email Sederhana", BASE / "kasus 2 (Email)" / "dfa_email.py"),
@@ -24,32 +17,64 @@ def muat_modul(path):
     return modul
 
 
-def jalankan_kasus(nama, path):
+def jalankan_kasus(kode_kasus, nama, path):
     modul = muat_modul(path)
-    print(f"\n=== Validasi {nama} (ketik 'kembali' untuk ke menu) ===")
-    while True:
-        teks = input("Masukkan string: ")
-        if teks.lower() == "kembali":
-            break
-        ok, jejak = modul.validasi(teks)
-        print("Status :", "VALID" if ok else "TIDAK VALID")
-        print("Jejak  :", " -> ".join(jejak))
+    
+    print("\n" + "=" * 70)
+    print(f"      PROGRAM VALIDASI {nama.upper()} (DFA)")
+    print("=" * 70)
+    
+    # Tampilkan aturan khusus jika memilih Kasus 1
+    if kode_kasus == "1":
+        print("Aturan:")
+        print("1. Karakter pertama wajib berupa huruf (a-z, A-Z) atau '_'")
+        print("2. Karakter berikutnya boleh huruf, angka (0-9), atau '_'")
+        print("3. Karakter selain huruf, angka, dan underscore dianggap tidak valid.")
+        print("=" * 70)
 
+    print("(Ketik 'kembali' untuk kembali ke Menu Utama)")
+
+    while True:
+        teks = input("\nMasukkan variabel: ").strip()
+
+        if teks.lower() == "kembali":
+            print("Kembali ke menu utama...")
+            break
+
+        if teks == "":
+            print("Input tidak boleh kosong!")
+            continue
+
+        ok, jejak = modul.validasi(teks)
+        status = "VALID" if ok else "TIDAK VALID"
+
+        print("\n---------------- HASIL VALIDASI ----------------")
+        print(f"Input Pengguna : {teks}")
+        print(f"Jejak Transisi : {' -> '.join(jejak)}")
+        print(f"Status Final   : {status}")
+        print("-" * 48)
 
 def main():
     while True:
-        print("\n=== DFA Validator - Kelompok 11 ===")
+        print("\n" + "=" * 40)
+        print("      DFA VALIDATOR - KELOMPOK 11")
+        print("=" * 40)
         for kode, (nama, _) in KASUS.items():
-            print(f"{kode}. {nama}")
-        print("0. Keluar")
-        pilihan = input("Pilih kasus: ").strip()
+            print(f"[{kode}] Kasus {kode}: {nama}")
+        print("[0] Keluar")
+        print("=" * 40)
+
+        pilihan = input("Pilih kasus (0-3): ").strip()
+
         if pilihan == "0":
+            print("Program selesai. Terima kasih.")
             break
+
         if pilihan in KASUS:
             nama, path = KASUS[pilihan]
-            jalankan_kasus(nama, path)
+            jalankan_kasus(pilihan, nama, path)
         else:
-            print("Pilihan tidak valid.")
+            print("Pilihan tidak valid, silakan coba lagi.")
 
 
 if __name__ == "__main__":

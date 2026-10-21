@@ -1,69 +1,28 @@
-"""DFA validasi nama variabel.
+def validasi(input_user):
+    transition_table = {
+        "q0": {"huruf": "q1", "underscore": "q1", "angka": "q_trap", "other": "q_trap"},
+        "q1": {"huruf": "q1", "underscore": "q1", "angka": "q1", "other": "q_trap"},
+        "q_trap": {"huruf": "q_trap", "underscore": "q_trap", "angka": "q_trap", "other": "q_trap"}
+    }
+    
+    state_sekarang = "q0"
+    urutan_state = [state_sekarang]
 
-Aturan:
-- Karakter pertama: huruf (a-z, A-Z) atau garis bawah (_)
-- Karakter berikutnya: huruf, angka (0-9), atau garis bawah (_)
-"""
+    for char in input_user:
+        if char.isalpha():
+            char_type = "huruf"
+        elif char.isdigit():
+            char_type = "angka"
+        elif char == "_":
+            char_type = "underscore"
+        else:
+            char_type = "other"
 
-# ---- Definisi formal M = (Q, Sigma, delta, q0, F) ----
-Q = {"q0", "q1", "qT"}
-SIGMA = {"huruf", "angka", "_", "lain"}
-START = "q0"
-FINAL = {"q1"}
-TRAP = "qT"
+        state_sekarang = transition_table[state_sekarang].get(char_type, "q_trap")
+        urutan_state.append(state_sekarang)
 
-# Tabel transisi: (state, kelas_karakter) -> state_berikutnya
-DELTA = {
-    ("q0", "huruf"): "q1",
-    ("q0", "_"): "q1",
-    ("q0", "angka"): "qT",
-    ("q0", "lain"): "qT",
+        if state_sekarang == "q_trap":
+            break
 
-    ("q1", "huruf"): "q1",
-    ("q1", "angka"): "q1",
-    ("q1", "_"): "q1",
-    ("q1", "lain"): "qT",
-
-    ("qT", "huruf"): "qT",
-    ("qT", "angka"): "qT",
-    ("qT", "_"): "qT",
-    ("qT", "lain"): "qT",
-}
-
-
-def klasifikasi(ch):
-    """Ubah satu karakter menjadi simbol alfabet DFA."""
-    if ch.isascii() and ch.isalpha():
-        return "huruf"
-    if ch.isascii() and ch.isdigit():
-        return "angka"
-    if ch == "_":
-        return "_"
-    return "lain"
-
-
-def validasi(teks):
-    """Jalankan DFA. Return (diterima: bool, jejak_state: list)."""
-    state = START
-    jejak = [state]
-    for ch in teks:
-        state = DELTA.get((state, klasifikasi(ch)), TRAP)
-        jejak.append(state)
-    return state in FINAL, jejak
-
-
-if __name__ == "__main__":
-    uji = [
-        ("nama_user", True),
-        ("_count1", True),
-        ("x", True),
-        ("123name", False),
-        ("user-name", False),
-        ("user name", False),
-        ("", False),
-    ]
-    for s, harapan in uji:
-        ok, jejak = validasi(s)
-        status = "VALID" if ok else "TIDAK VALID"
-        cocok = "OK" if ok == harapan else "SALAH"
-        print(f"{s!r:12} -> {status:12} [{cocok}] | {' -> '.join(jejak)}")
+    apakah_valid = (state_sekarang == "q1")
+    return apakah_valid, urutan_state
