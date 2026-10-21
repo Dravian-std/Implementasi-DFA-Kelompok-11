@@ -67,7 +67,7 @@ def jalankan_kasus(kode_kasus, nama, path):
             break
 
         if teks == "":
-            print("Input tidak boleh kosong!")
+            print("Input tidak boleh kosong.")
             continue
 
         ok, jejak = modul.validasi(teks)
@@ -101,7 +101,7 @@ def main():
             nama, path = KASUS[pilihan]
             jalankan_kasus(pilihan, nama, path)
         else:
-            print(">> Pilihan tidak valid, silakan coba lagi.")
+            print("Pilihan tidak valid, silakan coba lagi.")
 
 if __name__ == "__main__":
     main()
