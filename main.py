@@ -21,6 +21,7 @@ def muat_modul(path):
     return modul
 
 def jalankan_kasus(kode_kasus, nama, path):
+    bersihkan_layar()
     modul = muat_modul(path)
     print()
     print("=" * 70)
@@ -67,7 +68,7 @@ def jalankan_kasus(kode_kasus, nama, path):
             break
 
         if teks == "":
-            print(">> Input tidak boleh kosong!")
+            print("Input tidak boleh kosong.")
             continue
 
         ok, jejak = modul.validasi(teks)
@@ -77,7 +78,7 @@ def jalankan_kasus(kode_kasus, nama, path):
         print(f"Input Pengguna : '{teks}'")
         print(f"Jejak Transisi : {' -> '.join(jejak)}")
         print(f"Status Final   : {status}")
-        print("-" * 48)
+        print("-" * 52)
 
 def main():
     bersihkan_layar()
@@ -101,7 +102,7 @@ def main():
             nama, path = KASUS[pilihan]
             jalankan_kasus(pilihan, nama, path)
         else:
-            print(">> Pilihan tidak valid, silakan coba lagi.")
+            print("Pilihan tidak valid, silakan coba lagi.")
 
 if __name__ == "__main__":
     main()
