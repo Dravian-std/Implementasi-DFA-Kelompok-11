@@ -21,6 +21,7 @@ def muat_modul(path):
     return modul
 
 def jalankan_kasus(kode_kasus, nama, path):
+    bersihkan_layar()
     modul = muat_modul(path)
     print()
     print("=" * 70)
