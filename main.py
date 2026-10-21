@@ -1,4 +1,5 @@
 import importlib.util
+import os
 from pathlib import Path
 
 BASE = Path(__file__).parent
@@ -10,6 +11,11 @@ KASUS = {
 }
 
 
+def bersihkan_layar():
+    """Membersihkan layar terminal (cls untuk Windows, clear untuk Linux/Mac)."""
+    os.system("cls" if os.name == "nt" else "clear")
+
+
 def muat_modul(path):
     spec = importlib.util.spec_from_file_location(path.stem, path)
     modul = importlib.util.module_from_spec(spec)
@@ -18,9 +24,10 @@ def muat_modul(path):
 
 
 def jalankan_kasus(kode_kasus, nama, path):
+    bersihkan_layar()
     modul = muat_modul(path)
     
-    print("\n" + "=" * 70)
+    print("=" * 70)
     print(f"      PROGRAM VALIDASI {nama.upper()} (DFA)")
     print("=" * 70)
     
@@ -37,25 +44,29 @@ def jalankan_kasus(kode_kasus, nama, path):
         teks = input("\nMasukkan variabel: ").strip()
 
         if teks.lower() == "kembali":
-            print("Kembali ke menu utama...")
+            print("\nKembali ke menu utama...")
+            input("Tekan Enter untuk melanjutkan...")
+            bersihkan_layar()
             break
 
         if teks == "":
-            print("Input tidak boleh kosong!")
+            print(">> Input tidak boleh kosong!")
             continue
 
         ok, jejak = modul.validasi(teks)
         status = "VALID" if ok else "TIDAK VALID"
 
         print("\n---------------- HASIL VALIDASI ----------------")
-        print(f"Input Pengguna : {teks}")
+        print(f"Input Pengguna : '{teks}'")
         print(f"Jejak Transisi : {' -> '.join(jejak)}")
         print(f"Status Final   : {status}")
         print("-" * 48)
 
+
 def main():
+    bersihkan_layar()
     while True:
-        print("\n" + "=" * 40)
+        print("=" * 40)
         print("      DFA VALIDATOR - KELOMPOK 11")
         print("=" * 40)
         for kode, (nama, _) in KASUS.items():
@@ -66,6 +77,7 @@ def main():
         pilihan = input("Pilih kasus (0-3): ").strip()
 
         if pilihan == "0":
+            bersihkan_layar()
             print("Program selesai. Terima kasih.")
             break
 
@@ -73,7 +85,7 @@ def main():
             nama, path = KASUS[pilihan]
             jalankan_kasus(pilihan, nama, path)
         else:
-            print("Pilihan tidak valid, silakan coba lagi.")
+            print(">> Pilihan tidak valid, silakan coba lagi.")
 
 
 if __name__ == "__main__":
